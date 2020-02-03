@@ -65,7 +65,7 @@ def get_as_tags(bundle_name, extension=None, config='DEFAULT', attrs=''):
         url = "{}{}{}".format(
                 getattr(settings, 'STATIC_URL'),
                 get_loader(config).get_assets().get(
-                    'publicPath', ''),
+                    'publicPath', '').replace('/static/', ''),
                 get_chunk_url(chunk)
             )
 
