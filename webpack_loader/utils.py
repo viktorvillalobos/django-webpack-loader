@@ -64,7 +64,7 @@ def get_as_tags(bundle_name, extension=None, config='DEFAULT', attrs=''):
     bundle = _get_bundle(bundle_name, extension, config)
     tags = []
     for chunk in bundle:
-        url = self.get_chunk_url(chunk)
+        url = get_chunk_url(chunk)
 
         if chunk['name'].endswith(('.js', '.js.gz')):
             tags.append((
@@ -76,22 +76,22 @@ def get_as_tags(bundle_name, extension=None, config='DEFAULT', attrs=''):
             ).format(media_storage.url(), attrs))
     return tags
     
-    def get_chunk_url(chunk):
-        """
-            Remove file routes from chunks
+def get_chunk_url(chunk):
+    """
+        Remove file routes from chunks
 
-            url = /tmp/demo/test.jpg
+        url = /tmp/demo/test.jpg
 
-            return: test.jpg
-        """
+        return: test.jpg
+    """
 
-        if not '/' in chunk['url']:
-            return chunk['url']
+    if not '/' in chunk['url']:
+        return chunk['url']
 
-        reverse = chunk['url'][len(chunk['url'])::-1]
-        index = reverse.index('/')
+    reverse = chunk['url'][len(chunk['url'])::-1]
+    index = reverse.index('/')
 
-        return reverse[0:index][len(reverse)::-1]
+    return reverse[0:index][len(reverse)::-1]
 
 
 
