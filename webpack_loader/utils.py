@@ -62,16 +62,21 @@ def get_as_tags(bundle_name, extension=None, config='DEFAULT', attrs=''):
     bundle = _get_bundle(bundle_name, extension, config)
     tags = []
     for chunk in bundle:
-        url = get_chunk_url(chunk)
+        url = "{}{}{}".format(
+                getattr(settings, 'STATIC_URL'),
+                get_loader(config).get_assets().get(
+                    'publicPath', ''),
+                get_chunk_url(chunk)
+            )
 
         if chunk['name'].endswith(('.js', '.js.gz')):
             tags.append((
                 '<script type="text/javascript" src="{0}" {1}></script>'
-            ).format(get_static(url, config), attrs))
+            ).format(url, attrs))
         elif chunk['name'].endswith(('.css', '.css.gz')):
             tags.append((
                 '<link type="text/css" href="{0}" rel="stylesheet" {1}/>'
-            ).format(get_static(url, config), attrs))
+            ).format(url, attrs))
     return tags
     
 def get_chunk_url(chunk):
