@@ -5,7 +5,7 @@ from .config import load_config
 
 
 _loaders = {}
-media_storage = get_storage_class()()
+media_storage = get_storage_class(settings.STATICFILES_STORAGE)()
 
 
 def import_string(dotted_path):
