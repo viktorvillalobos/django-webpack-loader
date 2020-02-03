@@ -73,7 +73,7 @@ def get_as_tags(bundle_name, extension=None, config='DEFAULT', attrs=''):
         elif chunk['name'].endswith(('.css', '.css.gz')):
             tags.append((
                 '<link type="text/css" href="{0}" rel="stylesheet" {1}/>'
-            ).format(media_storage.url(), attrs))
+            ).format(media_storage.url(url), attrs))
     return tags
     
 def get_chunk_url(chunk):
